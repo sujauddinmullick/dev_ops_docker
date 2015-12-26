@@ -1,0 +1,23 @@
+final_gerrit: 
+  image: sujauddin/docker_gerrit_final 
+  restart: always
+  ports:
+    - 8020:8080
+    - 29418:29418
+
+final_jira: 
+  build: ./docker-jira
+  ports: 
+    - 8025:8080
+  restart: always
+
+final_jenkins:
+  build: ./docker-jenkins 
+  restart: always
+  ports:
+    - 8023:8080
+    - 8024:50000
+  links:
+    - final_jira
+    - final_gerrit
+

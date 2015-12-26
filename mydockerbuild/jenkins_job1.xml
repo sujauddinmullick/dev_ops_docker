@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@1.6">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec>$GERRIT_REFSPEC</refspec>
+        <url>http://jenkins@172.30.36.171:8020/demo_repo</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>$GERRIT_BRANCH</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.BuildChooserSetting>
+        <buildChooser class="com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTriggerBuildChooser" plugin="gerrit-trigger@2.18.2">
+          <separator>#</separator>
+        </buildChooser>
+      </hudson.plugins.git.extensions.impl.BuildChooserSetting>
+    </extensions>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger plugin="gerrit-trigger@2.18.2">
+      <spec></spec>
+      <gerritProjects>
+        <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+          <compareType>PLAIN</compareType>
+          <pattern>demo_repo</pattern>
+          <branches>
+            <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+              <compareType>PLAIN</compareType>
+              <pattern>development</pattern>
+            </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+            <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+              <compareType>PLAIN</compareType>
+              <pattern>master</pattern>
+            </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+            <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+              <compareType>PLAIN</compareType>
+              <pattern>testing</pattern>
+            </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+          </branches>
+          <disableStrictForbiddenFileVerification>false</disableStrictForbiddenFileVerification>
+        </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+      </gerritProjects>
+      <skipVote>
+        <onSuccessful>false</onSuccessful>
+        <onFailed>false</onFailed>
+        <onUnstable>false</onUnstable>
+        <onNotBuilt>false</onNotBuilt>
+      </skipVote>
+      <silentMode>false</silentMode>
+      <notificationLevel></notificationLevel>
+      <silentStartMode>false</silentStartMode>
+      <escapeQuotes>true</escapeQuotes>
+      <nameAndEmailParameterMode>PLAIN</nameAndEmailParameterMode>
+      <dependencyJobsNames></dependencyJobsNames>
+      <commitMessageParameterMode>BASE64</commitMessageParameterMode>
+      <changeSubjectParameterMode>PLAIN</changeSubjectParameterMode>
+      <buildStartMessage></buildStartMessage>
+      <buildFailureMessage></buildFailureMessage>
+      <buildSuccessfulMessage></buildSuccessfulMessage>
+      <buildUnstableMessage></buildUnstableMessage>
+      <buildNotBuiltMessage></buildNotBuiltMessage>
+      <buildUnsuccessfulFilepath></buildUnsuccessfulFilepath>
+      <customUrl></customUrl>
+      <serverName>demo_gerrit</serverName>
+      <triggerOnEvents>
+        <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.events.PluginPatchsetCreatedEvent>
+          <excludeDrafts>false</excludeDrafts>
+          <excludeTrivialRebase>false</excludeTrivialRebase>
+          <excludeNoCodeChange>true</excludeNoCodeChange>
+        </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.events.PluginPatchsetCreatedEvent>
+      </triggerOnEvents>
+      <dynamicTriggerConfiguration>false</dynamicTriggerConfiguration>
+      <triggerConfigURL></triggerConfigURL>
+      <triggerInformationAction/>
+    </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
+  </triggers>
+  <concurrentBuild>true</concurrentBuild>
+  <axes/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>printenv;
+
+
+</command>
+    </hudson.tasks.Shell>
+    <info.bluefloyd.jenkins.IssueUpdatesBuilder plugin="jenkins-jira-issue-updater@1.18">
+      <restAPIUrl>http://172.30.36.171:8025/rest/api/2/issue/DEMO</restAPIUrl>
+      <userName>jenkins</userName>
+      <password>mst12345</password>
+      <jql>project=&quot;DEMO&quot; and status=&quot;IN PROGRESS&quot;</jql>
+      <workflowActionName></workflowActionName>
+      <comment>commend added through jenkins</comment>
+      <customFieldId></customFieldId>
+      <customFieldValue></customFieldValue>
+      <resettingFixedVersions>false</resettingFixedVersions>
+      <createNonExistingFixedVersions>false</createNonExistingFixedVersions>
+      <failIfJqlFails>false</failIfJqlFails>
+      <failIfNoIssuesReturned>false</failIfNoIssuesReturned>
+      <failIfNoJiraConnection>false</failIfNoJiraConnection>
+    </info.bluefloyd.jenkins.IssueUpdatesBuilder>
+  </builders>
+  <publishers>
+    <info.bluefloyd.jenkins.IssueUpdaterResultsRecorder plugin="jenkins-jira-issue-updater@1.18">
+      <restAPIUrl>http://172.30.36.171:8025/rest/api/2/issue/DEMO</restAPIUrl>
+      <userName>jenkins</userName>
+      <password>mst12345</password>
+      <jql>project=&quot;DEMO&quot; and status=&quot;IN PROGRESS&quot;</jql>
+      <workflowActionName></workflowActionName>
+      <comment>comment2</comment>
+      <customFieldId></customFieldId>
+      <customFieldValue></customFieldValue>
+      <resettingFixedVersions>false</resettingFixedVersions>
+      <createNonExistingFixedVersions>false</createNonExistingFixedVersions>
+      <failIfJqlFails>false</failIfJqlFails>
+      <failIfNoIssuesReturned>false</failIfNoIssuesReturned>
+      <failIfNoJiraConnection>false</failIfNoJiraConnection>
+    </info.bluefloyd.jenkins.IssueUpdaterResultsRecorder>
+    <hudson.plugins.jira.JiraIssueUpdater plugin="jira@2.1"/>
+    <hudson.tasks.Mailer plugin="mailer@1.16">
+      <recipients>sujauddinmullick@yahoo.in msysdev1@yahoo.in kaladisvarane.k@msystechnologies.com</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers/>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+  </executionStrategy>
+</matrix-project>
