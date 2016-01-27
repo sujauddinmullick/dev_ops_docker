@@ -1,6 +1,7 @@
 # dev_ops_doc
 
 Before deployment make sure following files are modified properly.
+
 1. gerrit.config file
     -url of gerrit server
     -ip of the smtp server
