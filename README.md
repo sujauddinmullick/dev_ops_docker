@@ -29,3 +29,6 @@ Before deployment make sure following files are modified properly.
 8. once successfully completed take note of gerrit cont id and jenkins cont ip and port
 9. run setup script with gerrit-cont-id jenkins-cont-ip jenkins-cont-port
 10. manually generate the jenkins ssh key in jenkins-cont and paste it to gerrit jenkins acc.
+
+
+Note: Jira instance comes as a trial version for 1 months,post 1 month, same license may not work for jira instance since license is also checks db validity. So in that case we need to get a new jira instance with new license.
